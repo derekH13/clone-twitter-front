@@ -1,26 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import Cadastro from './share/components/pages/Cadastro/Cadastro'
+import Feed from './share/components/pages/Cadastro/Feed/Feed'
+import { Route, Routes } from 'react-router-dom'
 
-function App() {
+import { Provider } from 'react-redux'
+import store from './store/store'
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Provider store={store}>
+      <Routes>
+        <Route path="/" element={<Cadastro />} />
+        <Route path="/feed" element={<Feed />} />
+      </Routes>
+    </Provider>
+  )
 }
-
-export default App;
