@@ -4,7 +4,7 @@ import { Profile } from '../share/interface/interface'
 
 class Util {
   static async IsExiste(id: number): Promise<UserProps | null> {
-    const url = `http://127.0.0.1:8000/user/cadastro/${id}/` // URL da API
+    const url = `https://derek576.pythonanywhere.com/user/cadastro/${id}/` // URL da API
 
     try {
       const response = await fetch(url)
@@ -24,7 +24,7 @@ class Util {
   static CreateUser = async (
     userData: UserProps
   ): Promise<UserProps | null> => {
-    const url = 'http://127.0.0.1:8000/user/cadastro/'
+    const url = 'https://derek576.pythonanywhere.com/user/cadastro/'
 
     try {
       const response = await axios.post<UserProps>(url, userData)
@@ -37,7 +37,7 @@ class Util {
   }
 
   static async profilleAll(): Promise<Profile[] | null> {
-    const url = 'http://127.0.0.1:8000/user/profile/'
+    const url = 'https://derek576.pythonanywhere.com/user/profile/'
 
     try {
       const response = await fetch(url)
@@ -56,7 +56,7 @@ class Util {
   static async UserProfile(id: number): Promise<Profile | null> {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/user/profileUser/${id}/`
+        `https://derek576.pythonanywhere.com/user/profileUser/${id}/`
       )
 
       if (!response.ok) {
@@ -73,7 +73,7 @@ class Util {
   static async get_username(username: string): Promise<UserProps | null> {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/user/username/${username}/`
+        `https://derek576.pythonanywhere.com/user/username/${username}/`
       )
 
       if (!response.ok) {
@@ -103,7 +103,7 @@ class Util {
 
       // Enviando a requisição POST para o backend
       const response = await axios.post(
-        `http://localhost:8000/user/follow/${userId}/`, // Endpoint da API
+        `https://derek576.pythonanywhere.com/user/follow/${userId}/`, // Endpoint da API
         null, // O corpo da requisição pode ser omitido se vazio
         {
           headers: {
@@ -147,7 +147,7 @@ class Util {
     try {
       // Use Promise.all para executar todas as requisições em paralelo
       const requests = arg.map((num) =>
-        fetch(`http://127.0.0.1:8000/feed/postUser/${num}/`).then(
+        fetch(`https://derek576.pythonanywhere.com/feed/postUser/${num}/`).then(
           (response) => {
             if (!response.ok) {
               throw new Error(`Falha na requisição para o número ${num}`)
@@ -172,7 +172,7 @@ class Util {
   }
 
   static async MandarPost(data: PostPorps) {
-    const url = 'http://127.0.0.1:8000/feed/post/'
+    const url = 'https://derek576.pythonanywhere.com/feed/post/'
 
     try {
       axios.post(url, data)
@@ -184,7 +184,7 @@ class Util {
     }
   }
   static async EditarProfile(data: Profile, id: number) {
-    const url = `http://127.0.0.1:8000/user/profile/${id}/`
+    const url = `https://derek576.pythonanywhere.com/user/profile/${id}/`
 
     try {
       axios.put(url, data)

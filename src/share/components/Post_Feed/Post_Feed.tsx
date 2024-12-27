@@ -22,7 +22,7 @@ const Post_Feed = ({ title, desc, img, user, id }: props) => {
   async function buscarProfile(): Promise<Profile | null> {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/user/profile/${user}/`
+        `https://derek576.pythonanywhere.com/user/profile/${user}/`
       )
 
       if (!response.ok) {
@@ -41,7 +41,9 @@ const Post_Feed = ({ title, desc, img, user, id }: props) => {
 
   async function buscarUser(id: number) {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/user/cadastro/${id}/`)
+      const response = await fetch(
+        `https://derek576.pythonanywhere.com/user/cadastro/${id}/`
+      )
 
       if (!response.ok) {
         throw new Error('falha')

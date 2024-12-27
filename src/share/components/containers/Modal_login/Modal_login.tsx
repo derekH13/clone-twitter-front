@@ -46,10 +46,13 @@ const Modal_login = ({ onclick }: props) => {
   }
 
   const LocalStorage = async () => {
-    const response = await axios.post('http://localhost:8000/api/token/', {
-      username: nome,
-      password: senha
-    })
+    const response = await axios.post(
+      'https://derek576.pythonanywhere.com/api/token/',
+      {
+        username: nome,
+        password: senha
+      }
+    )
 
     // Salvar o token no localStorage (ou qualquer outro método seguro)
     localStorage.setItem('accessToken', response.data.access)

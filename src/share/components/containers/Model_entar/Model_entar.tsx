@@ -26,10 +26,13 @@ const Model_entar = ({ onclick }: props) => {
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault()
     try {
-      const response = await axios.post('http://localhost:8000/api/token/', {
-        username: nome,
-        password: senha
-      })
+      const response = await axios.post(
+        'https://derek576.pythonanywhere.com/api/token/',
+        {
+          username: nome,
+          password: senha
+        }
+      )
 
       // Salvar o token no localStorage (ou qualquer outro método seguro)
       localStorage.setItem('accessToken', response.data.access)
