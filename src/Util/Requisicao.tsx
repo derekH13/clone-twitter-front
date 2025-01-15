@@ -199,7 +199,7 @@ class Util {
   }
 
   static async all_curtidas(postId: number) {
-    const url = `http://127.0.0.1:8000/feed/postCurtidas/${postId}/`
+    const url = `https://derek576.pythonanywhere.com/feed/postCurtidas/${postId}/`
 
     try {
       const response = await fetch(url)
@@ -219,7 +219,7 @@ class Util {
     console.log(postId, profileId)
     try {
       axios.post(
-        `http://127.0.0.1:8000/feed/postCurtir/${postId}/${profileId}/`
+        `https://derek576.pythonanywhere.com/feed/postCurtir/${postId}/${profileId}/`
       )
 
       return true
@@ -232,7 +232,7 @@ class Util {
   static allComentarios = async (
     postId: number
   ): Promise<boolean | comentarios[]> => {
-    const url = `http://127.0.0.1:8000/feed/postComentarios/${postId}/`
+    const url = `https://derek576.pythonanywhere.com/feed/postComentarios/${postId}/`
 
     try {
       const response = await fetch(url)
@@ -246,6 +246,50 @@ class Util {
       console.error(err)
       return false
     }
+  }
+
+  static getProfile = async (profileId: number): Promise<Profile | null> => {
+    try {
+      const response = await fetch(
+        `https://derek576.pythonanywhere.com/user/profile/${profileId}/`
+      )
+
+      if (!response.ok) {
+        throw new Error('falha na requisição')
+      }
+      const data = await response.json()
+      return data
+    } catch (error) {
+      console.error(error)
+      return null
+    }
+  }
+
+  static ComentarPost = async (
+    postId: number,
+    profileId: number,
+    dataComent: string
+  ) => {
+    console.log(postId)
+
+    if (!dataComent) {
+      alert('Por favor, insira um comentário.')
+      return
+    }
+
+    // Dados que serão enviados no corpo da requisição
+    const data = new FormData()
+    data.append('iteracao_comentario', dataComent)
+
+    // Realiza a requisição POST
+    fetch(
+      `https://derek576.pythonanywhere.com/feed/postComentar/${postId}/${profileId}/`,
+      {
+        method: 'POST',
+        body: data,
+        headers: {}
+      }
+    )
   }
 }
 

@@ -24,7 +24,6 @@ const Card_profile = ({ data, modificar, alert }: props) => {
 
   useEffect(() => {
     Util.IsExiste(user).then((response) => {
-      console.log(response)
       response && setUser1(response)
     })
   }, [])

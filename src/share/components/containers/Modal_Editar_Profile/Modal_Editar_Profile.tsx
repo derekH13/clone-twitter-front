@@ -9,9 +9,10 @@ import { guardarProfile } from '../../../../store/reducers/profile'
 
 type props = {
   onclick: () => void
+  carregarImagem: () => void
 }
 
-const Modal_Editar_Profile = ({ onclick }: props) => {
+const Modal_Editar_Profile = ({ onclick, carregarImagem }: props) => {
   const [Biografia, setBiografia] = useState('')
   const [imagem, setImagem] = useState('')
   const [modificado, setModificado] = useState(true)
@@ -52,8 +53,13 @@ const Modal_Editar_Profile = ({ onclick }: props) => {
       })
     }
   }
-  console.log(profile?.avatar)
-  console.log(modificado)
+
+  function apertaConcluir(e: FormEvent) {
+    e.preventDefault()
+    mudarProfile(e)
+    onclick()
+    carregarImagem()
+  }
 
   return (
     <StyleWindown>
@@ -94,7 +100,7 @@ const Modal_Editar_Profile = ({ onclick }: props) => {
 
         <form className="container_input" onSubmit={(e) => mudarProfile(e)}>
           <InputS
-            placeholder="Link Imagem de Perfil"
+            placeholder="Colar Endereço de Imagem"
             onChange={(e) => setImagem(e.target.value)}
           />
           <InputS
@@ -102,6 +108,7 @@ const Modal_Editar_Profile = ({ onclick }: props) => {
             onChange={(e) => setBiografia(e.target.value)}
           />
           <ButtonStyle
+            onClick={(e) => apertaConcluir(e)}
             backColor={Color.blue}
             border={false}
             color={Color.white}

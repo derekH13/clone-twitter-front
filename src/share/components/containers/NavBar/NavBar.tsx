@@ -1,8 +1,10 @@
 import { useSelector } from 'react-redux'
 import * as s from './style'
 import { RootReducer } from '../../../../store/store'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Modal_Editar_Profile from '../Modal_Editar_Profile/Modal_Editar_Profile'
+import Util from '../../../../Util/Requisicao'
+import { Profile } from '../../../interface/interface'
 
 // {
 //   "id": 1,
@@ -14,16 +16,39 @@ import Modal_Editar_Profile from '../Modal_Editar_Profile/Modal_Editar_Profile'
 
 const NavBar = () => {
   const profile = useSelector((state: RootReducer) => state.profile.itens)
-
   const [isModalProfile, setIsModalProfile] = useState(true)
+
+  const [newProfile, setNewProfile] = useState<Profile>()
 
   const toggleEditar = () => {
     setIsModalProfile(!isModalProfile)
   }
 
+  function carregarImagem(): void {
+    if (profile && profile.id) {
+      Util.getProfile(profile.id).then((data) => {
+        if (data) {
+          console.log('wwwwwwwwwwwwwwwwwwwwwwwwwwww')
+          setNewProfile(data)
+        }
+      })
+    }
+  }
+
+  useEffect(() => {
+    carregarImagem()
+  }, [])
+
+  console.log(newProfile)
+
   return (
     <>
-      {isModalProfile && <Modal_Editar_Profile onclick={toggleEditar} />}
+      {isModalProfile && (
+        <Modal_Editar_Profile
+          onclick={toggleEditar}
+          carregarImagem={carregarImagem}
+        />
+      )}
       <s.navBarStyle>
         <div className="interface">
           <img src="assets/twitter.svg" alt="" />

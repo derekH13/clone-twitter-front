@@ -5,6 +5,9 @@ import { RootReducer } from '../../../store/store'
 import { FormEvent, useEffect, useState } from 'react'
 import { PostPorps, Profile, UserProps } from '../../interface/interface'
 import Util from '../../../Util/Requisicao'
+import { Comentarios } from '../Comentario/Comentarios'
+import { CreateComentario } from '../CreateComentario/CreateComentario'
+import { CurtidaNoPost } from '../Curtida/Curtida'
 
 const comentObj = [
   {
@@ -40,7 +43,6 @@ const Post_Feed = ({ title, desc, img, user, id }: props) => {
   const [usuarioAtual, setUsuarioAtual] = useState<UserProps>()
   const [profileAtual, setprofileAtual] = useState<Profile>()
 
-  const [numCurtidas, setNumCurtidas] = useState<null | number>(null)
   const [mostarComentarios, setMostrarComentarios] = useState(false)
 
   const [comentarios, setComentarios] = useState<comentarios[]>(comentObj)
@@ -89,12 +91,8 @@ const Post_Feed = ({ title, desc, img, user, id }: props) => {
     }
   }
 
-  function todasCurtidas() {
-    Util.all_curtidas(id).then((data) => {
-      if (data.length > 0) {
-        setNumCurtidas(data.length)
-      }
-    })
+  function mudarCurtida() {
+    setIsCurtido(!isCurtido)
   }
 
   useEffect(() => {
@@ -107,7 +105,6 @@ const Post_Feed = ({ title, desc, img, user, id }: props) => {
       }
     })
     // chama a função para pegar todas as curtidas
-    todasCurtidas()
   }, [])
 
   // func para carregar comentarios
@@ -138,36 +135,13 @@ const Post_Feed = ({ title, desc, img, user, id }: props) => {
         <img src={img} alt="" />
 
         <div className="interacoes">
-          <div onClick={() => setIsCurtido(!isCurtido)} className="curtir">
-            {numCurtidas && <span>{numCurtidas}</span>}
-            {!isCurtido ? (
-              <svg
-                onClick={(e) => curtirPost(e)}
-                xmlns="http://www.w3.org/2000/svg"
-                width="30"
-                height="30"
-                fill="currentColor"
-                className="bi bi-heart"
-                viewBox="0 0 16 16"
-              >
-                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="30"
-                height="30"
-                fill="red"
-                className="bi bi-heart-fill"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"
-                />
-              </svg>
-            )}
-          </div>
+          <CurtidaNoPost
+            id={id}
+            curtirPost={curtirPost}
+            funcIsCurtido={mudarCurtida}
+            isCurtido={isCurtido}
+            key={1}
+          />
           <div className="comentar">
             <svg
               onClick={(e) => loadingComentarios(e)}
@@ -187,8 +161,17 @@ const Post_Feed = ({ title, desc, img, user, id }: props) => {
 
       {mostarComentarios && (
         <div className="comentarios">
-          iterar os comentarios, só que agora não tem nrnhum por que não consigo
-          fazer POST
+          <CreateComentario postId={id} key={id} />
+          {comentarios.map((item) => (
+            <Comentarios
+              iteracao_comentario={item.iteracao_comentario}
+              iteracao_criada={item.iteracao_criada}
+              iteracao_id={item.iteracao_id}
+              post_id={item.post_id}
+              profile_id={item.profile_id}
+              key={item.post_id}
+            />
+          ))}
         </div>
       )}
     </PostStyle>

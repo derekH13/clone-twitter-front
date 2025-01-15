@@ -12,9 +12,10 @@ type props = {
   onclick: () => void
   modificar: () => void
   alert: (item: Alert) => void
+  carregar: () => void
 }
 
-const Modal_Posts = ({ onclick, modificar, alert }: props) => {
+const Modal_Posts = ({ onclick, modificar, alert, carregar }: props) => {
   const [titulo, setTitulo] = useState('')
   const [img, setImg] = useState('')
   const [desc, setDesc] = useState('')
@@ -35,7 +36,7 @@ const Modal_Posts = ({ onclick, modificar, alert }: props) => {
       Util.MandarPost(post).then((data) => {
         if (data) {
           console.log('post feito')
-          modificar()
+          carregar()
           alert({
             title: 'Post Feito!!',
             desc: 'post feito com sucesso'
@@ -90,7 +91,7 @@ const Modal_Posts = ({ onclick, modificar, alert }: props) => {
             onChange={(e) => setTitulo(e.target.value)}
           />
           <InputS
-            placeholder="Link da Imagem"
+            placeholder="Colar o Endereço da Imagem"
             onChange={(e) => setImg(e.target.value)}
           />
           <textarea

@@ -56,14 +56,17 @@ const Feed = () => {
     }
   }, [])
 
-  //pega todos os posts de quem segue
-  useEffect(() => {
+  function carregarPosts() {
     if (UserProfile && UserProfile.profile_connections !== undefined) {
       Util.buscarPosts(UserProfile.profile_connections).then((data) => {
-        console.log('Posts atualizados:', data)
         setObjPost(data)
       })
     }
+  }
+
+  //pega todos os posts de quem segue
+  useEffect(() => {
+    carregarPosts()
   }, [UserProfile, modificar])
 
   const AbrirPost = () => {
@@ -95,6 +98,7 @@ const Feed = () => {
       {IsAlert && <Alerts desc={dadosAlert?.desc} title={dadosAlert?.title} />}
       {isPost && (
         <Modal_Posts
+          carregar={carregarPosts}
           modificar={IsModificado}
           onclick={AbrirPost}
           alert={mudarAlert}
