@@ -8,6 +8,8 @@ import { RootReducer } from '../../../../store/store'
 import { PostPorps } from '../../../interface/interface'
 import { Alert } from '../../pages/Cadastro/Feed/Feed'
 
+import { motion } from 'framer-motion'
+
 type props = {
   onclick: () => void
   modificar: () => void
@@ -51,7 +53,12 @@ const Modal_Posts = ({ onclick, modificar, alert, carregar }: props) => {
 
   return (
     <StyleWindown>
-      <div className="modal_posts">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4 }}
+        className="modal_posts"
+      >
         <div onClick={() => onclick()} className="modal_posts_fechar">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -108,7 +115,7 @@ const Modal_Posts = ({ onclick, modificar, alert, carregar }: props) => {
             POSTAR
           </ButtonStyle>
         </form>
-      </div>
+      </motion.div>
     </StyleWindown>
   )
 }

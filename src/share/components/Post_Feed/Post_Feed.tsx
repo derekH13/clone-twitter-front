@@ -9,6 +9,8 @@ import { Comentarios } from '../Comentario/Comentarios'
 import { CreateComentario } from '../CreateComentario/CreateComentario'
 import { CurtidaNoPost } from '../Curtida/Curtida'
 
+import { motion } from 'framer-motion'
+
 const comentObj = [
   {
     iteracao_id: 1,
@@ -160,7 +162,12 @@ const Post_Feed = ({ title, desc, img, user, id }: props) => {
       </div>
 
       {mostarComentarios && (
-        <div className="comentarios">
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="comentarios"
+        >
           <CreateComentario postId={id} key={id} />
           {comentarios.map((item) => (
             <Comentarios
@@ -172,7 +179,7 @@ const Post_Feed = ({ title, desc, img, user, id }: props) => {
               key={item.post_id}
             />
           ))}
-        </div>
+        </motion.div>
       )}
     </PostStyle>
   )

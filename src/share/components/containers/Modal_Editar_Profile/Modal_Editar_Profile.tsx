@@ -6,6 +6,7 @@ import { FormEvent, useState } from 'react'
 import Util from '../../../../Util/Requisicao'
 import { Profile } from '../../../interface/interface'
 import { guardarProfile } from '../../../../store/reducers/profile'
+import { motion } from 'framer-motion'
 
 type props = {
   onclick: () => void
@@ -63,7 +64,12 @@ const Modal_Editar_Profile = ({ onclick, carregarImagem }: props) => {
 
   return (
     <StyleWindown>
-      <div className="modal_editar">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4 }}
+        className="modal_editar"
+      >
         <div className="modal_login_fechar" onClick={() => onclick()}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -118,7 +124,7 @@ const Modal_Editar_Profile = ({ onclick, carregarImagem }: props) => {
             Concluir
           </ButtonStyle>
         </form>
-      </div>
+      </motion.div>
     </StyleWindown>
   )
 }

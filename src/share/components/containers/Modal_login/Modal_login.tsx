@@ -8,6 +8,8 @@ import { guardarUser } from '../../../../store/reducers/usuario'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
+import { motion } from 'framer-motion'
+
 export type props = {
   onclick: () => void
 }
@@ -61,7 +63,12 @@ const Modal_login = ({ onclick }: props) => {
 
   return (
     <s.StyleWindown>
-      <div className="modal_login">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4 }}
+        className="modal_login"
+      >
         <div onClick={() => onclick()} className="modal_login_fechar">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -148,7 +155,7 @@ const Modal_login = ({ onclick }: props) => {
             </ButtonStyle>
           </div>
         </div>
-      </div>
+      </motion.div>
     </s.StyleWindown>
   )
 }

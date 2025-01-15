@@ -132,6 +132,7 @@ const Feed = () => {
             {objProfile &&
               objProfile.map((data) => (
                 <Card_profile
+                  carregar={carregarPosts}
                   alert={mudarAlert}
                   data={data}
                   modificar={IsModificado}

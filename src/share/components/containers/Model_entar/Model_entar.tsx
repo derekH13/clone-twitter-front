@@ -7,6 +7,8 @@ import { guardarUser } from '../../../../store/reducers/usuario'
 import Util from '../../../../Util/Requisicao'
 import { useNavigate } from 'react-router-dom'
 
+import { motion } from 'framer-motion'
+
 type props = {
   onclick: () => void
 }
@@ -56,7 +58,12 @@ const Model_entar = ({ onclick }: props) => {
   return (
     <>
       <StyleWindown>
-        <div className="modal_login">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4 }}
+          className="modal_login"
+        >
           <div onClick={() => onclick()} className="modal_login_fechar">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -138,7 +145,7 @@ const Model_entar = ({ onclick }: props) => {
               </div>
             </form>
           </div>
-        </div>
+        </motion.div>
       </StyleWindown>
     </>
   )

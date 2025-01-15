@@ -14,6 +14,7 @@ export const PostStyle = styled.div`
   .comentarios {
     height: 200px;
     overflow-y: scroll;
+    z-index: -1;
   }
 
   .content {

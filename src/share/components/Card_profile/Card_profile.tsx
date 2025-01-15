@@ -1,7 +1,7 @@
 import { CardStyle } from './style'
 import { UserProps, Profile } from '../../interface/interface'
 import Util from '../../../Util/Requisicao'
-import { useEffect, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { ButtonStyle, Color, Texto } from '../../style/main_style'
 import { guardarProfile } from '../../../store/reducers/profile'
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,9 +12,10 @@ type props = {
   data: Profile
   modificar: () => void
   alert: (item: Alert) => void
+  carregar: () => void
 }
 
-const Card_profile = ({ data, modificar, alert }: props) => {
+const Card_profile = ({ data, modificar, alert, carregar }: props) => {
   const [user1, setUser1] = useState<UserProps>()
   const usuario = useSelector((state: RootReducer) => state.user.itens)
 
@@ -27,6 +28,11 @@ const Card_profile = ({ data, modificar, alert }: props) => {
       response && setUser1(response)
     })
   }, [])
+
+  function carregarPosts(e: FormEvent) {
+    e.preventDefault()
+    carregar()
+  }
 
   function seguir() {
     if (id && id !== null && id !== undefined) {
@@ -88,6 +94,7 @@ const Card_profile = ({ data, modificar, alert }: props) => {
           </Texto>
         </div>
         <ButtonStyle
+          onClick={(e) => carregarPosts(e)}
           maxWidth="100%"
           backColor={Color.blackFundo}
           border={true}
