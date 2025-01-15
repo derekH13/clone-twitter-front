@@ -11,6 +11,7 @@ export const navBarStyle = styled.nav`
   right: 0;
   background-color: ${Color.black};
   border-bottom: solid 1px ${Color.gray};
+  z-index: 5000;
 
   .interface {
     max-width: 1080px;

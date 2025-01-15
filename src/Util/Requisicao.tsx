@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { PostPorps, UserProps } from '../share/interface/interface'
 import { Profile } from '../share/interface/interface'
+import { comentarios } from '../share/components/Post_Feed/Post_Feed'
 
 class Util {
   static async IsExiste(id: number): Promise<UserProps | null> {
@@ -183,6 +184,7 @@ class Util {
       return false
     }
   }
+
   static async EditarProfile(data: Profile, id: number) {
     const url = `https://derek576.pythonanywhere.com/user/profile/${id}/`
 
@@ -190,6 +192,56 @@ class Util {
       axios.put(url, data)
 
       return true
+    } catch (err) {
+      console.error(err)
+      return false
+    }
+  }
+
+  static async all_curtidas(postId: number) {
+    const url = `http://127.0.0.1:8000/feed/postCurtidas/${postId}/`
+
+    try {
+      const response = await fetch(url)
+
+      if (!response.ok) {
+        throw new Error('falha na requisição')
+      }
+      const result = await response.json()
+      return result
+    } catch (err) {
+      console.error(err)
+      return false
+    }
+  }
+
+  static CurtirPost = async (postId: number, profileId: number) => {
+    console.log(postId, profileId)
+    try {
+      axios.post(
+        `http://127.0.0.1:8000/feed/postCurtir/${postId}/${profileId}/`
+      )
+
+      return true
+    } catch (error) {
+      console.error(error)
+      return false
+    }
+  }
+
+  static allComentarios = async (
+    postId: number
+  ): Promise<boolean | comentarios[]> => {
+    const url = `http://127.0.0.1:8000/feed/postComentarios/${postId}/`
+
+    try {
+      const response = await fetch(url)
+
+      if (!response.ok) {
+        throw new Error('falha na requisição')
+      }
+      const result = await response.json()
+      return result
     } catch (err) {
       console.error(err)
       return false

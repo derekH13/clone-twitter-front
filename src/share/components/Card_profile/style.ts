@@ -34,7 +34,7 @@ export const CardStyle = styled.div`
     }
 
     ${Texto} {
-      height: 53px;
+      height: 39px;
       overflow: hidden;
     }
 
